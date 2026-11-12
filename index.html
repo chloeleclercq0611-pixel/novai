@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NŌVAÏ BOOST Orange sanguine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* Identité NŌVAÏ : vert profond de la marque + couleur de la ligne (BOOST orange, FOCUS bleu, CALM violet, RECOVERY vert). Une colonne pensée pour le téléphone, une vue par produit (routage par #ancre). */
+  :root {
+    --vert: #1E3B2F;
+    --vert-doux: #4C8656;
+    --c1: #F59A32;
+    --c2: #EE7A22;
+    --c3: #D9432B;
+    --tint: #FFF4E8;
+    --ink: #24312B;
+    --gris: #6B756F;
+    --filet: #E6E9E6;
+    --fond: #FBFAF7;
+    --display: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--body); color: var(--ink); background: var(--fond); line-height: 1.55; font-size: 16px; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
+  h1, h2, h3 { font-family: var(--display); color: var(--vert); text-wrap: balance; line-height: 1.15; }
+  h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -.015em; }
+  h3 { font-size: 1.02rem; font-weight: 700; }
+  p { max-width: 65ch; }
+  .num { font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+
+  /* En-tête produit */
+  .hero { background: linear-gradient(160deg, var(--c1) 0%, var(--c2) 45%, var(--c3) 100%); color: #fff; padding: 22px 0 28px; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; width: 340px; height: 340px; right: -120px; top: -100px; border-radius: 50%; border: 26px solid rgba(255,255,255,.12); pointer-events: none; }
+  .brandbar { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+  .wordmark { font-weight: 900; font-size: 1.6rem; letter-spacing: -.01em; color: #fff; text-decoration: none; }
+  .tag { font-weight: 700; font-size: .72rem; letter-spacing: .3em; background: var(--vert); color: #fff; padding: 6px 10px 6px 13px; border-radius: 999px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; margin-top: 14px; position: relative; z-index: 1; }
+  .hero .benefit { font-weight: 600; font-size: .9rem; opacity: .95; }
+  .hero h1 { color: #fff; font-size: 2.15rem; font-weight: 900; letter-spacing: -.02em; margin-top: 4px; }
+  .hero .sub { font-weight: 600; font-size: .76rem; letter-spacing: .16em; opacity: .92; margin-top: 6px; }
+  .hero .slogan { font-weight: 800; font-size: 1.12rem; margin-top: 14px; color: var(--vert); }
+  .bottle { width: 118px; height: auto; display: block; filter: drop-shadow(0 10px 14px rgba(0,0,0,.18)); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative; z-index: 1; }
+  .chip { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.5); color: #fff; font-weight: 600; font-size: .8rem; padding: 6px 12px; border-radius: 999px; }
+
+  /* Sommaire */
+  nav.toc { position: sticky; top: 0; z-index: 5; background: rgba(251,250,247,.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--filet); }
+  nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  nav.toc button { flex: none; font: inherit; cursor: pointer; color: var(--vert); font-weight: 600; font-size: .86rem; padding: 7px 13px; border-radius: 999px; background: #fff; border: 1px solid var(--filet); }
+  nav.toc button:hover, nav.toc button:focus-visible { border-color: var(--c2); color: var(--c3); outline: none; }
+
+  section { padding: 30px 0 6px; scroll-margin-top: 60px; }
+  .lead { color: var(--gris); margin-top: 8px; }
+
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+  .fact { background: #fff; border: 1px solid var(--filet); border-radius: 14px; padding: 14px; }
+  .fact b { display: block; font-size: 1.4rem; font-weight: 800; color: var(--c3); letter-spacing: -.01em; }
+  .fact span { font-size: .86rem; color: var(--gris); }
+
+  .ings { display: grid; gap: 10px; margin-top: 16px; }
+  .ing { background: #fff; border: 1px solid var(--filet); border-left: 5px solid var(--c2); border-radius: 14px; padding: 14px 16px; }
+  .ing header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .ing h3 .n { color: var(--c2); }
+  .pct { flex: none; font-weight: 700; font-size: .78rem; color: var(--c3); background: var(--tint); padding: 3px 8px; border-radius: 999px; }
+  .ing p { font-size: .93rem; margin-top: 6px; }
+  .origin { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: .8rem; font-weight: 600; color: var(--vert-doux); }
+  .origin::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--vert-doux); }
+  .note { font-size: .85rem; color: var(--gris); margin-top: 12px; }
+  .nope { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .nope span { font-size: .84rem; font-weight: 600; color: var(--vert); background: #EAF2EA; padding: 6px 12px; border-radius: 999px; }
+
+  .routes { margin-top: 16px; background: #fff; border: 1px solid var(--filet); border-radius: 14px; overflow: hidden; }
+  .route { display: grid; grid-template-columns: 54px 1fr; gap: 12px; align-items: center; padding: 13px 16px; }
+  .route + .route { border-top: 1px solid var(--filet); }
+  .cc { width: 54px; height: 38px; border-radius: 9px; display: grid; place-items: center; font-weight: 800; font-size: .9rem; color: #fff; background: var(--vert); }
+  .route strong { display: block; color: var(--vert); font-size: .95rem; }
+  .route span { font-size: .85rem; color: var(--gris); }
+
+  .tbl { margin-top: 16px; background: #fff; border: 1px solid var(--filet); border-radius: 14px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 9px 10px; text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; }
+  thead th { background: var(--vert); color: #fff; font-weight: 700; font-size: .82rem; }
+  tbody tr + tr td { border-top: 1px solid var(--filet); }
+  td.in { padding-left: 28px; color: var(--gris); }
+  tr.hl td { background: var(--tint); font-weight: 600; }
+
+  .caf { margin-top: 16px; background: #fff; border: 1px solid var(--filet); border-radius: 14px; padding: 16px; }
+  .meter { margin-top: 12px; }
+  .bar { height: 14px; border-radius: 999px; background: #F1EEE8; position: relative; overflow: hidden; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--c2), var(--c3)); border-radius: 999px; }
+  .scale { display: flex; justify-content: space-between; gap: 8px; font-size: .76rem; color: var(--gris); margin-top: 6px; }
+  .warn { margin-top: 14px; background: #FDECE8; border-left: 4px solid #D9432B; border-radius: 10px; padding: 12px 14px; font-weight: 600; font-size: .9rem; color: #7A2416; }
+  .free { margin-top: 14px; background: #EAF2EA; border-left: 4px solid var(--vert-doux); border-radius: 10px; padding: 12px 14px; font-weight: 600; font-size: .9rem; color: var(--vert); }
+  ul.tips { margin-top: 14px; list-style: none; display: grid; gap: 8px; }
+  ul.tips li { padding-left: 22px; position: relative; font-size: .93rem; }
+  ul.tips li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 8px; height: 8px; border-radius: 50%; background: var(--c2); }
+
+  .steps { display: grid; gap: 10px; margin-top: 16px; }
+  .step { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; background: #fff; border: 1px solid var(--filet); border-radius: 14px; padding: 14px; }
+  .step b { width: 38px; height: 38px; border-radius: 50%; background: var(--vert); color: #fff; display: grid; place-items: center; font-weight: 800; }
+  .step p { font-size: .93rem; }
+
+  .range { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+  .line { border-radius: 14px; padding: 14px; color: #fff; }
+  .line h3 { color: #fff; font-size: .95rem; letter-spacing: .08em; }
+  .line > p { font-size: .82rem; opacity: .92; margin-top: 2px; }
+  .line ul { list-style: none; margin-top: 10px; display: grid; gap: 6px; }
+  .line a { display: flex; justify-content: space-between; align-items: center; gap: 6px; text-decoration: none; font-size: .84rem; font-weight: 600; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 10px; padding: 8px 10px; }
+  .line a::after { content: "›"; font-size: 1.1rem; line-height: 1; }
+  .line a:hover, .line a:focus-visible { background: rgba(255,255,255,.32); outline: none; }
+  .line a[aria-current="page"] { background: #fff; color: var(--vert); }
+  .line a[aria-current="page"]::after { content: "ici"; font-size: .72rem; font-weight: 700; }
+
+  .contact { margin-top: 16px; background: var(--vert); color: #fff; border-radius: 14px; padding: 18px; }
+  .contact h3 { color: #fff; }
+  .contact p { font-size: .92rem; margin-top: 6px; opacity: .92; }
+  .contact .handle { display: inline-block; margin-top: 12px; font-weight: 700; background: #fff; color: var(--vert); padding: 7px 14px; border-radius: 999px; }
+
+  footer { margin-top: 36px; padding: 22px 0 34px; border-top: 1px solid var(--filet); font-size: .8rem; color: var(--gris); }
+  footer .wm { font-weight: 900; color: var(--vert); font-size: 1.1rem; }
+  footer p + p { margin-top: 6px; }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.8rem; }
+    .bottle { width: 96px; }
+  }
+  @media (min-width: 640px) {
+    .facts { grid-template-columns: repeat(4, 1fr); }
+    .range { grid-template-columns: repeat(4, 1fr); }
+    .bottle { width: 140px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-grid, main { animation: in .35s ease-out both; }
+    @keyframes in { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brandbar">
+      <a class="wordmark" href="#boost-orange-sanguine">NŌVAÏ</a>
+      <div class="tag" id="tag">BOOST</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="benefit" id="benefit">Un coup d’énergie naturel</div>
+        <h1 id="flavour">Orange sanguine</h1>
+        <div class="sub" id="sub">GINGEMBRE &amp; GUARANA</div>
+        <div class="slogan" id="slogan">L’énergie, naturellement.</div>
+      </div>
+      <div id="bottle"></div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sommaire">
+  <div class="wrap">
+    <button type="button" data-go="composition">Composition</button>
+    <button type="button" data-go="origines">Origines</button>
+    <button type="button" data-go="nutrition">Nutrition</button>
+    <button type="button" data-go="cafeine">Caféine</button>
+    <button type="button" data-go="recyclage">Recyclage</button>
+    <button type="button" data-go="gamme">La gamme</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main"></main>
+
+<footer>
+  <div class="wrap">
+    <p class="wm">NŌVAÏ</p>
+    <p>NŌVAÏ SAS, 06000 Nice, France.</p>
+    <p>Projet étudiant réalisé dans le cadre d’un TD de marketing (ESDHEM). La marque, les produits, les recettes et les origines présentés sont fictifs.</p>
+  </div>
+</footer>
+
+<script>
+const LINES = {
+  boost:    { name: "BOOST",    need: "L’énergie",        benefit: "Un coup d’énergie naturel",   c: ["#F59A32", "#EE7A22", "#D9432B"], tint: "#FFF4E8", word: "L’énergie" },
+  focus:    { name: "FOCUS",    need: "La concentration", benefit: "Pour rester concentré",       c: ["#5AA5EE", "#3F7FD0", "#2A55A8"], tint: "#EAF2FC", word: "La concentration" },
+  calm:     { name: "CALM",     need: "La détente",       benefit: "Un moment de détente",        c: ["#B08CE4", "#8E62C9", "#653FA8"], tint: "#F2ECFA", word: "La sérénité" },
+  recovery: { name: "RECOVERY", need: "L’hydratation",    benefit: "Hydratation et récupération", c: ["#5FC57E", "#3E9E5C", "#2B7A45"], tint: "#EAF6EE", word: "La récupération" }
+};
+
+const LINE_INFO = {
+  boost: {
+    vit: { name: "Vitamine B6", per100: 0.21, unit: "mg", vnr: 1.4 },
+    vitText: "La vitamine B6 contribue à réduire la fatigue et au fonctionnement normal du système nerveux.",
+    tips: ["Pour un coup de fatigue : après le déjeuner, avant une séance de révision ou un long trajet.", "Pense à compter le café, le thé ou les autres boissons à la caféine bus dans la journée.", "Si tu es sensible à la caféine, évite d’en boire en soirée."],
+    gas: true
+  },
+  focus: {
+    vit: { name: "Vitamine B5", per100: 0.9, unit: "mg", vnr: 6 },
+    vitText: "L’acide pantothénique (vitamine B5) contribue à des performances intellectuelles normales et à réduire la fatigue.",
+    tips: ["Pendant une séance de travail, un cours ou des révisions.", "Une caféine plus douce que BOOST : environ deux fois moins par bouteille.", "Pense à compter le café ou le thé bus dans la journée."],
+    gas: true
+  },
+  calm: {
+    vit: { name: "Magnésium", per100: 56, unit: "mg", vnr: 375 },
+    vitText: "Le magnésium contribue au fonctionnement normal du système nerveux et à des fonctions psychologiques normales.",
+    tips: ["Pour une pause au calme, en fin de journée ou après les cours.", "Sans caféine : elle peut se boire le soir.", "Se boit fraîche, ou à température ambiante pour plus de douceur."],
+    gas: false
+  },
+  recovery: {
+    vit: { name: "Potassium", per100: 300, unit: "mg", vnr: 2000 },
+    vitText: "Le potassium contribue au fonctionnement normal des muscles et du système nerveux.",
+    tips: ["Pendant ou après une activité physique.", "En complément de l’eau, pas à sa place : continue à boire régulièrement.", "Sans caféine : elle peut se boire à tout moment de la journée."],
+    gas: false
+  }
+};
+
+/* fruit: type de dessin sur l'étiquette de la bouteille */
+const P = [
+  { id: "boost-orange-sanguine", line: "boost", flavour: "Orange sanguine", sub: "GINGEMBRE & GUARANA", liquid: "#F07A26", fruit: ["citrus", "#F07F1E", "#E8562A"],
+    denom: "Boisson énergisante gazeuse à l’orange sanguine et au gingembre, sans sucres, à la caféine d’origine naturelle et à la vitamine B6.",
+    carbs: 0.4, salt: 0.01, caf: 24, cafSource: "du guarana",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus d’orange sanguine", "4 %", "Le goût principal. L’orange sanguine doit sa chair rouge aux anthocyanes, des pigments naturels. Le jus est reconstitué à partir de concentré.", "Sicile, Italie"],
+      ["Infusion de gingembre", "gingembre 1 %", "De l’eau dans laquelle le gingembre a infusé. Elle donne la petite note piquante qui réveille en bouche.", "Pérou"],
+      ["Jus de citron", "", "Il apporte l’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Extrait de guarana", "", "La source de caféine de la boisson. Le guarana est une plante d’Amazonie dont les graines contiennent naturellement de la caféine, plus que les grains de café.", "Brésil (Amazonie)"],
+      ["Arôme naturel d’orange sanguine", "", "Il renforce le parfum du fruit. La mention « arôme naturel d’orange sanguine » signifie que l’arôme provient au moins à 95 % de l’orange sanguine elle-même.", "Italie"],
+      ["Vitamine B6", "", "VIT", "Union européenne"]
+    ] },
+  { id: "boost-fruits-rouges", line: "boost", flavour: "Fruits rouges", sub: "MYRTILLE & GINSENG", liquid: "#B8243A", fruit: ["berries", "#C2263E", "#5A3E9E"],
+    denom: "Boisson énergisante gazeuse aux fruits rouges, à la myrtille et au ginseng, sans sucres, à la caféine d’origine naturelle et à la vitamine B6.",
+    carbs: 0.4, salt: 0.01, caf: 24, cafSource: "du guarana",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus de fruits rouges", "4 %", "Un mélange de fraise, de framboise et de cassis, reconstitué à partir de concentrés. C’est le goût principal, gourmand et légèrement acidulé.", "France"],
+      ["Jus de myrtille", "1 %", "Il apporte une note plus profonde et renforce la couleur rouge sombre de la boisson.", "Pologne"],
+      ["Jus de citron", "", "Il apporte l’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Extrait de guarana", "", "La source de caféine de la boisson. Le guarana est une plante d’Amazonie dont les graines contiennent naturellement de la caféine, plus que les grains de café.", "Brésil (Amazonie)"],
+      ["Extrait de racine de ginseng", "", "Une racine très utilisée en Asie. Elle ajoute une légère note boisée en fin de bouche.", "Corée du Sud"],
+      ["Arôme naturel de fruits rouges", "", "Il renforce le parfum des fruits. Un arôme dit « naturel de fruits rouges » provient au moins à 95 % de ces fruits.", "France"],
+      ["Vitamine B6", "", "VIT", "Union européenne"]
+    ] },
+  { id: "boost-framboise", line: "boost", flavour: "Framboise", sub: "GINGEMBRE & GUARANA", liquid: "#E0435A", fruit: ["raspberry", "#E0435A", "#B82A44"],
+    denom: "Boisson énergisante gazeuse à la framboise et au gingembre, sans sucres, à la caféine d’origine naturelle et à la vitamine B6.",
+    carbs: 0.4, salt: 0.01, caf: 24, cafSource: "du guarana",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus de framboise", "4 %", "Le goût principal, fruité et acidulé. Le jus est reconstitué à partir de concentré.", "Serbie"],
+      ["Infusion de gingembre", "gingembre 1 %", "De l’eau dans laquelle le gingembre a infusé. Elle donne une note piquante qui contraste avec la douceur de la framboise.", "Pérou"],
+      ["Jus de citron", "", "Il apporte l’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Extrait de guarana", "", "La source de caféine de la boisson. Le guarana est une plante d’Amazonie dont les graines contiennent naturellement de la caféine, plus que les grains de café.", "Brésil (Amazonie)"],
+      ["Arôme naturel de framboise", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de framboise » provient au moins à 95 % de la framboise.", "Serbie"],
+      ["Vitamine B6", "", "VIT", "Union européenne"]
+    ] },
+  { id: "boost-ananas", line: "boost", flavour: "Ananas", sub: "CITRON VERT & GUARANA", liquid: "#F2C230", fruit: ["pineapple", "#F2C230", "#5E9E45"],
+    denom: "Boisson énergisante gazeuse à l’ananas et au citron vert, sans sucres, à la caféine d’origine naturelle et à la vitamine B6.",
+    carbs: 0.4, salt: 0.01, caf: 24, cafSource: "du guarana",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus d’ananas", "4 %", "Le goût principal, exotique et ensoleillé. Le jus est reconstitué à partir de concentré.", "Costa Rica"],
+      ["Jus de citron vert", "2 %", "Il apporte une acidité vive qui rafraîchit et équilibre la douceur de l’ananas.", "Mexique"],
+      ["Extrait de guarana", "", "La source de caféine de la boisson. Le guarana est une plante d’Amazonie dont les graines contiennent naturellement de la caféine, plus que les grains de café.", "Brésil (Amazonie)"],
+      ["Arôme naturel d’ananas", "", "Il renforce le parfum du fruit. Un arôme dit « naturel d’ananas » provient au moins à 95 % de l’ananas.", "Costa Rica"],
+      ["Vitamine B6", "", "VIT", "Union européenne"]
+    ] },
+  { id: "focus-pomme-verte", line: "focus", flavour: "Pomme verte", sub: "MATCHA", liquid: "#A8D46A", fruit: ["apple", "#9CCB5A", "#5E8E3A"],
+    denom: "Boisson gazeuse à la pomme verte et au thé matcha, sans sucres, contenant de la caféine d’origine naturelle et de la vitamine B5.",
+    carbs: 0.4, salt: 0.01, caf: 12, cafSource: "du thé matcha",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus de pomme verte", "4 %", "Le goût principal, frais et légèrement acidulé. Le jus est reconstitué à partir de concentré.", "France"],
+      ["Infusion de thé matcha", "matcha 0,5 %", "Le matcha est un thé vert réduit en poudre très fine. Il apporte une note végétale et une caféine plus douce que celle du café. C’est l’ingrédient haut de gamme de la ligne FOCUS.", "Japon"],
+      ["Jus de citron", "", "Il apporte l’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Arôme naturel de pomme", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de pomme » provient au moins à 95 % de la pomme.", "France"],
+      ["Vitamine B5", "", "VIT", "Union européenne"]
+    ] },
+  { id: "focus-citron", line: "focus", flavour: "Citron", sub: "THÉ VERT", liquid: "#F3E05A", fruit: ["citrus", "#F2D43A", "#F7E98A"],
+    denom: "Boisson gazeuse au citron et au thé vert, sans sucres, contenant de la caféine d’origine naturelle et de la vitamine B5.",
+    carbs: 0.2, salt: 0.01, caf: 12, cafSource: "du thé vert",
+    ings: [
+      ["Eau de source gazéifiée", "", "La base de la boisson. Les bulles apportent la fraîcheur et le côté pétillant.", "France"],
+      ["Jus de citron", "4 %", "Le goût principal, vif et désaltérant. Le jus est reconstitué à partir de concentré.", "Sicile, Italie"],
+      ["Infusion de thé vert", "thé vert 0,8 %", "De l’eau dans laquelle le thé vert a infusé. Il apporte une légère amertume et une caféine plus douce que celle du café.", "Chine"],
+      ["Arôme naturel de citron", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de citron » provient au moins à 95 % du citron.", "Italie"],
+      ["Vitamine B5", "", "VIT", "Union européenne"]
+    ] },
+  { id: "calm-framboise", line: "calm", flavour: "Framboise", sub: "MÉLISSE & CAMOMILLE", liquid: "#D86A9A", fruit: ["raspberry", "#E0607E", "#B84466"],
+    denom: "Boisson plate à la framboise, à la mélisse et à la camomille, sans sucres, sans caféine, au magnésium.",
+    carbs: 0.3, salt: 0.01, caf: 0,
+    ings: [
+      ["Eau de source", "", "La base de la boisson, non gazeuse pour plus de douceur.", "France"],
+      ["Infusion de mélisse et de camomille", "mélisse 0,5 %, camomille 0,3 %", "Deux plantes utilisées depuis longtemps en tisane. Elles donnent des notes douces, florales et citronnées.", "France (mélisse), Égypte (camomille)"],
+      ["Jus de framboise", "3 %", "Le goût fruité de la boisson. Le jus est reconstitué à partir de concentré.", "Serbie"],
+      ["Jus de citron", "", "Une pointe d’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Arôme naturel de framboise", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de framboise » provient au moins à 95 % de la framboise.", "Serbie"],
+      ["Citrate de magnésium", "", "VIT", "Union européenne"]
+    ] },
+  { id: "calm-myrtille", line: "calm", flavour: "Myrtille", sub: "VERVEINE & TILLEUL", liquid: "#6B4FA8", fruit: ["berries", "#5B4FA8", "#3A3380"],
+    denom: "Boisson plate à la myrtille, à la verveine et au tilleul, sans sucres, sans caféine, au magnésium.",
+    carbs: 0.3, salt: 0.01, caf: 0,
+    ings: [
+      ["Eau de source", "", "La base de la boisson, non gazeuse pour plus de douceur.", "France"],
+      ["Infusion de verveine et de tilleul", "verveine 0,5 %, tilleul 0,3 %", "Deux plantes classiques de la tisane du soir. Elles apportent des notes douces et légèrement miellées.", "France"],
+      ["Jus de myrtille", "3 %", "Le goût fruité et la couleur violette de la boisson. Le jus est reconstitué à partir de concentré.", "Pologne"],
+      ["Jus de citron", "", "Une pointe d’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Arôme naturel de myrtille", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de myrtille » provient au moins à 95 % de la myrtille.", "Pologne"],
+      ["Citrate de magnésium", "", "VIT", "Union européenne"]
+    ] },
+  { id: "recovery-ananas", line: "recovery", flavour: "Ananas", sub: "MANGUE & EAU DE COCO", liquid: "#F5CF4A", fruit: ["pineapple", "#F5CF4A", "#4E9A55"],
+    denom: "Boisson plate à l’ananas, à la mangue et à l’eau de coco, sans sucres, sans caféine, au potassium.",
+    carbs: 0.4, salt: 0.05, caf: 0,
+    ings: [
+      ["Eau de source", "", "La base de la boisson, non gazeuse pour se boire facilement pendant l’effort.", "France"],
+      ["Eau de coco", "6 %", "Le liquide naturellement présent dans la noix de coco verte. Elle contient naturellement des minéraux, dont du potassium.", "Sri Lanka"],
+      ["Jus d’ananas", "2 %", "Le goût principal, exotique. Le jus est reconstitué à partir de concentré.", "Costa Rica"],
+      ["Purée de mangue", "0,5 %", "Une touche de mangue qui arrondit le goût.", "Inde"],
+      ["Jus de citron", "", "Une pointe d’acidité qui équilibre le goût, ce qui évite d’avoir à ajouter du sucre.", "Espagne"],
+      ["Sel de mer", "", "Une petite quantité de sel, car on perd du sodium en transpirant.", "Guérande, France"],
+      ["Arôme naturel d’ananas", "", "Il renforce le parfum du fruit. Un arôme dit « naturel d’ananas » provient au moins à 95 % de l’ananas.", "Costa Rica"],
+      ["Citrate de potassium", "", "VIT", "Union européenne"]
+    ] },
+  { id: "recovery-citron-vert", line: "recovery", flavour: "Citron vert", sub: "MENTHE & EAU DE COCO", liquid: "#B5DE7A", fruit: ["citrus", "#7CC04A", "#C9E89A"],
+    denom: "Boisson plate au citron vert, à la menthe et à l’eau de coco, sans sucres, sans caféine, au potassium.",
+    carbs: 0.2, salt: 0.05, caf: 0,
+    ings: [
+      ["Eau de source", "", "La base de la boisson, non gazeuse pour se boire facilement pendant l’effort.", "France"],
+      ["Eau de coco", "6 %", "Le liquide naturellement présent dans la noix de coco verte. Elle contient naturellement des minéraux, dont du potassium.", "Sri Lanka"],
+      ["Jus de citron vert", "3 %", "Le goût principal, vif et rafraîchissant. Le jus est reconstitué à partir de concentré.", "Mexique"],
+      ["Infusion de menthe", "menthe 0,3 %", "De l’eau dans laquelle la menthe a infusé, pour une sensation de fraîcheur.", "France"],
+      ["Sel de mer", "", "Une petite quantité de sel, car on perd du sodium en transpirant.", "Guérande, France"],
+      ["Arôme naturel de citron vert", "", "Il renforce le parfum du fruit. Un arôme dit « naturel de citron vert » provient au moins à 95 % du citron vert.", "Mexique"],
+      ["Citrate de potassium", "", "VIT", "Union européenne"]
+    ] }
+];
+
+const COUNTRY = {
+  "France": "FR", "Sicile, Italie": "IT", "Italie": "IT", "Pérou": "PE", "Espagne": "ES", "Brésil (Amazonie)": "BR",
+  "Union européenne": "UE", "Pologne": "PL", "Corée du Sud": "KR", "Serbie": "RS", "Costa Rica": "CR", "Mexique": "MX",
+  "Japon": "JP", "Chine": "CN", "Égypte": "EG", "Sri Lanka": "LK", "Inde": "IN", "Guérande, France": "FR"
+};
+
+const fr = (x, d) => x.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+function fruitSVG(f, cx, cy, r) {
+  const [type, a, b] = f;
+  if (type === "citrus") {
+    let lines = "";
+    for (let i = 0; i < 8; i++) { const t = i * Math.PI / 4; lines += `<line x1="${cx}" y1="${cy}" x2="${cx + Math.cos(t) * r * .78}" y2="${cy + Math.sin(t) * r * .78}"/>`; }
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${a}"/><circle cx="${cx}" cy="${cy}" r="${r * .86}" fill="#FFF6E2"/><circle cx="${cx}" cy="${cy}" r="${r * .78}" fill="${b}"/><g stroke="#FFF6E2" stroke-width="${r * .09}" stroke-linecap="round">${lines}</g>`;
+  }
+  if (type === "berries") {
+    return `<circle cx="${cx - r * .45}" cy="${cy + r * .2}" r="${r * .55}" fill="${a}"/><circle cx="${cx + r * .45}" cy="${cy + r * .25}" r="${r * .5}" fill="${b}"/><circle cx="${cx}" cy="${cy - r * .35}" r="${r * .5}" fill="${a}"/><circle cx="${cx + r * .45}" cy="${cy + r * .1}" r="${r * .12}" fill="#fff" opacity=".5"/><path d="M${cx} ${cy - r * .85} q${r * .3} ${-r * .35} ${r * .65} ${-r * .2}" stroke="#5E8E3A" stroke-width="${r * .14}" fill="none" stroke-linecap="round"/>`;
+  }
+  if (type === "raspberry") {
+    let d = "";
+    const pts = [[0, -.5], [-.35, -.2], [.35, -.2], [0, .1], [-.4, .2], [.4, .2], [-.18, .5], [.18, .5], [0, -.15]];
+    pts.forEach(([x, y]) => d += `<circle cx="${cx + x * r}" cy="${cy + y * r}" r="${r * .3}" fill="${a}" stroke="${b}" stroke-width="${r * .05}"/>`);
+    return d + `<path d="M${cx - r * .4} ${cy - r * .8} q${r * .4} ${r * .3} ${r * .8} 0" stroke="#5E8E3A" stroke-width="${r * .16}" fill="none" stroke-linecap="round"/>`;
+  }
+  if (type === "pineapple") {
+    return `<path d="M${cx} ${cy - r * .55} l${-r * .35} ${-r * .55} l${r * .2} ${r * .1} l${r * .15} ${-r * .45} l${r * .15} ${r * .45} l${r * .2} ${-r * .1} z" fill="${b}"/><ellipse cx="${cx}" cy="${cy + r * .2}" rx="${r * .6}" ry="${r * .78}" fill="${a}"/><g stroke="#C9972A" stroke-width="${r * .07}"><line x1="${cx - r * .5}" y1="${cy - r * .2}" x2="${cx + r * .3}" y2="${cy + r * .9}"/><line x1="${cx - r * .1}" y1="${cy - r * .55}" x2="${cx + r * .55}" y2="${cy + r * .45}"/><line x1="${cx + r * .5}" y1="${cy - r * .2}" x2="${cx - r * .3}" y2="${cy + r * .9}"/><line x1="${cx + r * .1}" y1="${cy - r * .55}" x2="${cx - r * .55}" y2="${cy + r * .45}"/></g>`;
+  }
+  // apple
+  return `<path d="M${cx} ${cy - r * .55} c${-r * .9} ${-r * .45} ${-r * 1.15} ${r * .6} ${-r * .55} ${r * 1.25} c${r * .2} ${r * .2} ${r * .4} ${r * .1} ${r * .55} ${r * .05} c${r * .15} ${r * .05} ${r * .35} ${r * .15} ${r * .55} ${-r * .05} c${r * .6} ${-r * .65} ${r * .35} ${-r * 1.7} ${-r * .55} ${-r * 1.25} z" fill="${a}"/><path d="M${cx} ${cy - r * .55} q${r * .05} ${-r * .3} ${r * .2} ${-r * .45}" stroke="#6B4A2A" stroke-width="${r * .1}" fill="none" stroke-linecap="round"/><path d="M${cx + r * .15} ${cy - r * .75} q${r * .45} ${-r * .3} ${r * .7} ${-r * .05} q${-r * .35} ${r * .3} ${-r * .7} ${r * .05} z" fill="${b}"/>`;
+}
+
+function bottleSVG(p) {
+  const L = LINES[p.line];
+  const gid = "g" + p.id;
+  return `<svg class="bottle" viewBox="0 0 120 300" role="img" aria-label="Bouteille NŌVAÏ ${L.name} ${esc(p.flavour)}">
+    <defs>
+      <linearGradient id="${gid}" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="${L.c[0]}"/><stop offset=".45" stop-color="${L.c[1]}"/><stop offset="1" stop-color="${L.c[2]}"/></linearGradient>
+      <linearGradient id="glass${gid}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".25" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>
+      <clipPath id="clip${gid}"><path d="M46 44h28v34c0 14 24 26 24 50v156a10 10 0 0 1-10 10H32a10 10 0 0 1-10-10V128c0-24 24-36 24-50z"/></clipPath>
+    </defs>
+    <rect x="43" y="6" width="34" height="34" rx="4" fill="#C9CED1"/>
+    <g stroke="#AEB4B8" stroke-width="1.2">${[12, 17, 22, 27, 32].map(y => `<line x1="45" y1="${y}" x2="75" y2="${y}"/>`).join("")}</g>
+    <rect x="43" y="36" width="34" height="5" fill="#B9BFC3"/>
+    <g clip-path="url(#clip${gid})">
+      <rect x="0" y="40" width="120" height="260" fill="#EAF0EE" opacity=".55"/>
+      <rect x="0" y="92" width="120" height="210" fill="${p.liquid}"/>
+      <rect x="22" y="140" width="76" height="110" fill="url(#${gid})"/>
+      <rect x="0" y="40" width="120" height="260" fill="url(#glass${gid})"/>
+    </g>
+    <path d="M46 44h28v34c0 14 24 26 24 50v156a10 10 0 0 1-10 10H32a10 10 0 0 1-10-10V128c0-24 24-36 24-50z" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/>
+    <text x="60" y="163" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="15" fill="#fff">NŌVAÏ</text>
+    <rect x="${60 - (L.name.length * 3.9 + 9) / 2}" y="168" width="${L.name.length * 3.9 + 9}" height="10" rx="5" fill="#1E3B2F"/>
+    <text x="60" y="175.6" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="6" letter-spacing="1.4" fill="#fff">${L.name}</text>
+    <circle cx="60" cy="199" r="13" fill="#FFF4E8"/>
+    ${fruitSVG(p.fruit, 60, 199, 9)}
+    <text x="60" y="225" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="${p.flavour.length > 13 ? 7 : 8}" fill="#fff">${esc(p.flavour)}</text>
+    <text x="60" y="241" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="6.5" fill="#fff">33 cl</text>
+    <rect x="27" y="104" width="5" height="160" rx="2.5" fill="#fff" opacity=".28"/>
+  </svg>`;
+}
+
+function render() {
+  const id = (location.hash || "").slice(1);
+  const p = P.find(x => x.id === id) || P[0];
+  const L = LINES[p.line], I = LINE_INFO[p.line];
+  const r = document.documentElement.style;
+  r.setProperty("--c1", L.c[0]); r.setProperty("--c2", L.c[1]); r.setProperty("--c3", L.c[2]); r.setProperty("--tint", L.tint);
+  document.title = `NŌVAÏ ${L.name} ${p.flavour}`;
+
+  document.getElementById("tag").textContent = L.name;
+  document.getElementById("benefit").textContent = L.benefit;
+  document.getElementById("flavour").textContent = p.flavour;
+  document.getElementById("sub").textContent = p.sub;
+  document.getElementById("slogan").textContent = `${L.word}, naturellement.`;
+  document.getElementById("bottle").innerHTML = bottleSVG(p);
+  const cafChip = p.caf ? (p.line === "boost" ? "Caféine d’origine naturelle" : "Caféine douce, d’origine naturelle") : "Sans caféine";
+  document.getElementById("chips").innerHTML = ["Sans sucres", "Sans édulcorant", cafChip, "33 cl · verre recyclé"].map(c => `<span class="chip">${c}</span>`).join("");
+
+  const sugar = p.carbs, kj = Math.round(p.carbs * 17), kcal = Math.round(p.carbs * 4);
+  const kjB = Math.round(p.carbs * 17 * 3.3), kcalB = Math.round(p.carbs * 4 * 3.3);
+  const v = I.vit, vB = v.per100 * 3.3, vPct = Math.round(v.per100 / v.vnr * 100), vPctB = Math.round(vB / v.vnr * 100);
+  const vDec = v.per100 < 1 ? 2 : 0;
+  const cafB = Math.round(p.caf * 3.3);
+  const juiceNote = p.ings.filter(i => /^Jus|^Purée|^Eau de coco/.test(i[0])).map(i => i[0].toLowerCase().replace(/^jus d[e’']\s?/, "").replace(/^jus /, "")).join(", ");
+
+  const ingHTML = p.ings.map((g, k) => {
+    const text = g[2] === "VIT" ? `${I.vitText} Une bouteille en apporte environ ${vPctB} % des apports de référence.` : g[2];
+    return `<article class="ing"><header><h3><span class="n">${k + 1}.</span> ${esc(g[0])}</h3>${g[1] ? `<span class="pct num">${g[1]}</span>` : ""}</header><p>${text}</p><span class="origin">${esc(g[3])}</span></article>`;
+  }).join("");
+
+  const origins = {};
+  p.ings.forEach(g => g[3].split(/,\s(?=[A-ZÉ])/).length > 1 && /\(/.test(g[3])
+    ? g[3].split(/,\s/).forEach(part => { const m = part.match(/^(.*) \((.*)\)$/); if (m) (origins[m[1]] = origins[m[1]] || []).push(m[2]); })
+    : (origins[g[3]] = origins[g[3]] || []).push(g[0]));
+  const originHTML = Object.entries(origins).map(([place, what]) => `<div class="route"><div class="cc">${COUNTRY[place] || "··"}</div><div><strong>${esc(place)}</strong><span>${what.map((w, i) => esc(i ? w.charAt(0).toLowerCase() + w.slice(1) : w)).join(", ")}</span></div></div>`).join("");
+
+  let cafHTML;
+  if (p.caf) {
+    const pct = Math.min(100, cafB / 400 * 100);
+    cafHTML = `<div class="caf"><h3>${cafB} mg par bouteille${p.line === "boost" ? ", à peu près un expresso" : ", environ la moitié d’un expresso"}</h3>
+      <p class="lead">La caféine vient ${p.cafSource}. Pour un adulte en bonne santé, l’Autorité européenne de sécurité des aliments (EFSA) considère que jusqu’à 400 mg de caféine par jour, toutes sources confondues, ne pose pas de problème.</p>
+      <div class="meter" role="img" aria-label="Une bouteille représente environ ${Math.round(pct)} % du repère de 400 mg par jour"><div class="bar"><i style="width:${pct}%"></i></div><div class="scale num"><span>0</span><span>1 bouteille = ${cafB} mg</span><span>400 mg / jour</span></div></div>
+      ${p.caf * 10 > 150 ? `<div class="warn">Teneur élevée en caféine. Déconseillé aux enfants et aux femmes enceintes ou allaitantes (${p.caf} mg/100 ml).</div>` : `<div class="free">Contient de la caféine (${p.caf} mg/100 ml), en quantité plus modérée que NŌVAÏ BOOST.</div>`}
+      <ul class="tips">${I.tips.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
+  } else {
+    cafHTML = `<div class="caf"><h3>0 mg : cette boisson ne contient pas de caféine</h3><div class="free">Sans caféine, sans guarana, sans thé.</div><ul class="tips">${I.tips.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
+  }
+
+  const rangeHTML = Object.entries(LINES).map(([k, l]) => `<div class="line" style="background:${l.c[1]}"><h3>${l.name}</h3><p>${l.need}</p><ul>${P.filter(x => x.line === k).map(x => `<li><a href="#${x.id}"${x.id === p.id ? ' aria-current="page"' : ""}>${esc(x.flavour)}</a></li>`).join("")}</ul></div>`).join("");
+
+  document.getElementById("main").innerHTML = `
+  <section>
+    <h2>En bref</h2>
+    <p class="lead">${esc(p.denom)}</p>
+    <div class="facts">
+      <div class="fact"><b class="num">${kcalB} kcal</b><span>par bouteille</span></div>
+      <div class="fact"><b class="num">${fr(sugar, 1)} g</b><span>de sucres pour 100 ml, venus des fruits</span></div>
+      <div class="fact"><b class="num">${p.caf ? cafB + " mg" : "0 mg"}</b><span>${p.caf ? "de caféine par bouteille, issue " + p.cafSource : "de caféine"}</span></div>
+      <div class="fact"><b class="num">≈ ${vPctB} %</b><span>des apports de référence en ${v.name.charAt(0).toLowerCase() + v.name.slice(1)} par bouteille</span></div>
+    </div>
+  </section>
+
+  <section id="composition">
+    <h2>Composition</h2>
+    <p class="lead">Les ${p.ings.length} ingrédients, dans l’ordre de la liste : du plus présent au moins présent. Pour chacun, ce qu’il fait dans ta bouteille.</p>
+    <div class="ings">${ingHTML}</div>
+    <div class="nope"><span>0 sucre ajouté</span><span>0 édulcorant</span><span>0 colorant</span><span>0 conservateur</span></div>
+    <p class="note">Les ${fr(sugar, 1)} g de sucres pour 100 ml viennent uniquement des fruits (${juiceNote}). En dessous de 0,5 g pour 100 ml, une boisson peut être dite « sans sucres ».</p>
+  </section>
+
+  <section id="origines">
+    <h2>D’où viennent les ingrédients</h2>
+    <p class="lead">Chaque ingrédient est choisi là où il pousse le mieux.</p>
+    <div class="routes">${originHTML}</div>
+  </section>
+
+  <section id="nutrition">
+    <h2>Valeurs nutritionnelles</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Pour</th><th>100 ml</th><th>1 bouteille</th></tr></thead>
+      <tbody>
+        <tr><td>Énergie</td><td>${kj} kJ / ${kcal} kcal</td><td>${kjB} kJ / ${kcalB} kcal</td></tr>
+        <tr><td>Matières grasses</td><td>0 g</td><td>0 g</td></tr>
+        <tr><td class="in">dont saturés</td><td>0 g</td><td>0 g</td></tr>
+        <tr><td>Glucides</td><td>${fr(p.carbs, 1)} g</td><td>${fr(p.carbs * 3.3, 1)} g</td></tr>
+        <tr><td class="in">dont sucres</td><td>${fr(sugar, 1)} g</td><td>${fr(sugar * 3.3, 1)} g</td></tr>
+        <tr><td>Protéines</td><td>0 g</td><td>0 g</td></tr>
+        <tr><td>Sel</td><td>${fr(p.salt, 2)} g</td><td>${fr(p.salt * 3.3, 2)} g</td></tr>
+        <tr class="hl"><td>${v.name}</td><td>${fr(v.per100, vDec)} ${v.unit}</td><td>${fr(vB, vDec)} ${v.unit}<br><small>${vPctB} % VNR*</small></td></tr>
+        <tr class="hl"><td>Caféine</td><td>${p.caf} mg</td><td>${cafB} mg</td></tr>
+      </tbody></table></div>
+    <p class="note">* VNR : valeurs nutritionnelles de référence pour un adulte.</p>
+  </section>
+
+  <section id="cafeine">
+    <h2>La caféine, en clair</h2>
+    ${cafHTML}
+  </section>
+
+  <section id="recyclage">
+    <h2>Conservation et recyclage</h2>
+    <div class="steps">
+      <div class="step"><b>1</b><p><strong>Au frais et à l’abri de la lumière.</strong> NŌVAÏ se boit bien fraîche.</p></div>
+      <div class="step"><b>2</b><p><strong>Refermable.</strong> Le bouchon se revisse. Une fois ouverte, la bouteille est à consommer rapidement.</p></div>
+      <div class="step"><b>3</b><p><strong>Une bouteille en verre recyclé.</strong> Elle est fabriquée à partir de verre déjà recyclé, ce qui demande moins de matières premières neuves.</p></div>
+      <div class="step"><b>4</b><p><strong>Verre à recycler.</strong> Une fois vide, la bouteille va dans le conteneur à verre, sans son bouchon. Le verre se recycle sans perdre en qualité, et peut redevenir une nouvelle bouteille.</p></div>
+    </div>
+  </section>
+
+  <section id="gamme">
+    <h2>Toute la gamme NŌVAÏ</h2>
+    <p class="lead">Une boisson pour chaque moment de la journée. Touche un parfum pour voir sa fiche.</p>
+    <div class="range">${rangeHTML}</div>
+    <div class="contact">
+      <h3>Une question, une bouteille abîmée ?</h3>
+      <p>Notre service client répond à tes questions sur les produits et leur composition. En cas de bouteille défectueuse ou endommagée, nous étudions une solution : remplacement ou remboursement.</p>
+      <span class="handle">@novai.boissons</span>
+    </div>
+  </section>`;
+}
+
+document.querySelectorAll("nav.toc button").forEach(b => b.addEventListener("click", () => {
+  const el = document.getElementById(b.dataset.go);
+  if (el) el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}));
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+render();
+</script>
+</body>
+</html>
